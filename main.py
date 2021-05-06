@@ -7,27 +7,31 @@ import random
 
 #startup 
 pygame.init()
-#sounds
+
+#sounds and art
 shooting_sound=pygame.mixer.Sound("sound\\shoot.wav")
 explosion=pygame.mixer.Sound('sound\\explosion.wav')
 bg=pygame.image.load("art\\bg.png")
 explosion_art=pygame.image.load("art\\explosion.png")
 shield_art=pygame.image.load("art\\shield.png")
+
 #volume
 pygame.mixer.Sound.set_volume(shooting_sound,0.015)
 pygame.mixer.Sound.set_volume(explosion,0.05)
 
 #set display size and title
 pygame.display.set_caption("David Henry - 1007604 - CSE 1202")
-#score
+
+#running
 running = True
 game_over=False
-
+# draw score
 def score_draw(score):
         font = pygame.font.SysFont('Verdana', 20)
         score_text = font.render("Score : "+str(score), 1, (255,255,255))
         game_window.blit(score_text, (5, 10))
 
+# game over text when player dies
 def game_over_text():
     global running
     global game_over
@@ -39,19 +43,19 @@ def game_over_text():
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
                 running = False 
-    
-          
+                
 #main game loop
+while running:
 
-while running:  
+    #game over  
     if game_over:
         game_over_text()
-        
-          
+
         #close 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-                running = False                 
+                running = False 
+
     #player movement            
     action = pygame.key.get_pressed()
     if not game_over:
@@ -71,14 +75,14 @@ while running:
             if not projectile.state:
                 projectile.state=True
                 pygame.mixer.Sound.play(shooting_sound)
-                projectile.reset()        
+                projectile.reset() 
 
         #boundaries
         player.boundaries(player.x,player.y)
-    
+
     #background
-    game_window.blit(bg,(0,0))
-    
+    game_window.blit(bg,(0,0)) 
+
      #projectile
     if projectile.y <=0:
             projectile.state=False
@@ -90,8 +94,8 @@ while running:
 
     #reset enemy.amount
     if enemy.amount <= 0 :
-        enemy.amount = 10
-    
+        enemy.amount = 10   
+
     #for loops to check enemies
     if not game_over:
         for i in range(enemy.amount):
@@ -147,17 +151,17 @@ while running:
             bar_update=player.health*10             
             pygame.mixer.Sound.play(explosion) 
             enemy.remove(i)
-            enemy.amount-=1         
- 
+            enemy.amount-=1 
+
     #player
     if player.health <=0:
-        game_over=True
-        
+        game_over=True 
+
     if not game_over:
         score_draw(score)
         player.health_bar(bar_update)
-        game_window.blit(player.art,(player.x,player.y))  
-            
+        game_window.blit(player.art,(player.x,player.y)) 
+
         #refresh display
         pygame.display.flip()
         clock.tick(fps)
