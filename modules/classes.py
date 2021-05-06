@@ -11,9 +11,9 @@ class Player(object):
         self.x=(width - 50) /2 
         self.y=height - 100
         #health
-        self.health=2
+        self.health=5
         #speed
-        self.speed=2
+        self.speed=5
         #art
         self.art=pygame.image.load("art\\ship.png")
 
@@ -28,14 +28,18 @@ class Player(object):
         if y <=height/2:
             self.y=height/2 
 
+    def health_bar(self,bar_update):
+        pygame.draw.rect(game_window,(0,0,0),pygame.Rect(player.x, player.y+60, 50, 5))
+        pygame.draw.rect(game_window,(0,255,0),pygame.Rect(player.x, player.y+60, bar_update, 5))
+
        
 #enemy     
 class Enemy(object):
     def __init__(self) :
-        self.amount=500
+        self.amount=10
         self.art=pygame.image.load("art\\enemy.png")
-        self.speed=2
-        self.drop=100
+        self.speed=5
+        self.drop=60
 
     def remove(self,i):
             enemy_unit.remove(enemy_unit[i])
@@ -46,6 +50,7 @@ class Enemy(object):
 
     def spawn(self,img,x,y):
         game_window.blit(img,(x,y)) 
+    
 #projectile
 class Projectile(object):
     def __init__(self):
@@ -65,6 +70,7 @@ class Shield(object):
         self.health=5
         self.active=False
         
+
 
 player=Player()
 projectile=Projectile()

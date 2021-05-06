@@ -1,4 +1,5 @@
 import pygame
+
 #frames
 clock = pygame.time.Clock()
 fps=60
@@ -15,3 +16,5 @@ enemy_unit_x=[]
 enemy_unit_y=[]
 enemy_unit_drop=[]
 enemy_moving=[]
+
+bar_update=50
