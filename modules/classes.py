@@ -70,5 +70,3 @@ player=Player()
 projectile=Projectile()
 enemy=Enemy()
 shield=Shield()
-
-

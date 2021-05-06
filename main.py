@@ -116,14 +116,7 @@ while running:
                 projectile.reset()                  
                 enemy.remove(i)                   
                 pygame.mixer.Sound.play(explosion)           
-                    
-                
-
-    
-    
-    if shield.active:        
-        
-        game_window.blit(shield_art,(player.x-25,player.y-25))        
+      
 
         for i in range(enemy.amount):
             if col.hit(player.x,player.y,enemy_unit_x[i],enemy_unit_y[i],100):
@@ -149,13 +142,3 @@ while running:
     #refresh display
     pygame.display.flip()
     clock.tick(fps)
-
-
-    
-
-
-
-
-
-
-
