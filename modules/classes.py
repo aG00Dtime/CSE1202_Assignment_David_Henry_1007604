@@ -56,7 +56,7 @@ class Projectile(object):
     def __init__(self):
         self.state=False
         self.art=pygame.image.load("art\\bullet.png")
-        self.speed=10
+        self.speed=20
         self.x=player.x+15
         self.y=player.y
 
