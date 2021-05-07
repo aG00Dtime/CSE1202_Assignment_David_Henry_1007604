@@ -1,6 +1,6 @@
 import pygame,modules.vars as var
 
-def play_music():
+def music():
     pygame.mixer.music.play(-1)
 
 def score_draw(score):
@@ -12,3 +12,22 @@ def score_draw(score):
 
 def draw(img,x,y):
     var.game_window.blit(img, (x, y))
+
+def sound(sound):
+    pygame.mixer.Sound.play(sound) 
+
+def game_over_text():
+    
+    if var.game_over:
+        
+        pygame.mixer.music.stop()
+        font = pygame.font.SysFont('Verdana', 50)
+        game_over_text=font.render("GAME OVER", 1, (255,255,255))
+        draw(game_over_text,150,300)
+        pygame.display.flip()
+        
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                    var.game_over=False 
+                    var.running = False
+                

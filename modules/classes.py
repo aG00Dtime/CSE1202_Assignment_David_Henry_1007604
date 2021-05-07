@@ -1,6 +1,4 @@
-#player
-import pygame
-from pygame.key import name
+import pygame,modules.collision as col,modules.vars as var
 from modules.vars import width,height
 from modules.vars import width,height,enemy_moving,enemy_unit,enemy_unit_drop,enemy_unit_x,enemy_unit_y,game_window
 
@@ -16,7 +14,6 @@ class Player(object):
         self.speed=5
         #art
         self.art=pygame.image.load("art\\ship.png").convert_alpha()
-        
 
         #keep player inside the window
     def boundaries(self,x,y):
@@ -32,27 +29,24 @@ class Player(object):
     def health_bar(self,bar_update):
         pygame.draw.rect(game_window,(0,0,0),pygame.Rect(player.x, player.y+60, 50, 5))        
         pygame.draw.rect(game_window,(0,255,0),pygame.Rect(player.x, player.y+60, bar_update, 5))
-        
-
-       
+    
+    def hit(self,i):
+        if col.hit(self.x,self.y,var.enemy_unit_x[i],var.enemy_unit_y[i],40):
+            return True
 #enemy     
 class Enemy(object):
     def __init__(self) :
         self.amount=10
         self.art=pygame.image.load("art\\enemy.png").convert_alpha()
-        self.speed=5
-        self.drop=20
+        self.speed=10
+        self.drop=30
 
     def remove(self,i):
             enemy_unit.remove(enemy_unit[i])
             enemy_unit_x.remove(enemy_unit_x[i])
             enemy_unit_y.remove(enemy_unit_y[i])
             enemy_unit_drop.remove(enemy_unit_drop[i])
-            enemy_moving.remove (enemy_moving[i])
-
-    def spawn(self,img,x,y):
-        game_window.blit(img,(x,y)) 
-    
+            enemy_moving.remove (enemy_moving[i])        
 #projectile
 class Projectile(object):
     def __init__(self):
@@ -65,7 +59,11 @@ class Projectile(object):
     #reset the projectile
     def reset(self):        
         self.x=player.x+15
-        self.y=player.y   
+        self.y=player.y 
+
+    def hit(self,i):
+        if col.hit(self.x,self.y,var.enemy_unit_x[i],var.enemy_unit_y[i],40): 
+            return True 
        
 class Shield(object):
     def __init__(self):
