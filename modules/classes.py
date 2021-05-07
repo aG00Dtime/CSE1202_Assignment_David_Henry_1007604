@@ -1,13 +1,13 @@
 import pygame,modules.collision as col,modules.vars as var
-from modules.vars import width,height
-from modules.vars import width,height,enemy_moving,enemy_unit,enemy_unit_drop,enemy_unit_x,enemy_unit_y,game_window
+
+
 
 #player
 class Player(object):
     def __init__(self):
         #starting position
-        self.x=(width - 50) /2 
-        self.y=height - 100
+        self.x=(var.width - 50) /2 
+        self.y=var.height - 100
         #health
         self.health=5
         #speed
@@ -27,8 +27,8 @@ class Player(object):
             self.y=600 
 
     def health_bar(self,bar_update):
-        pygame.draw.rect(game_window,(0,0,0),pygame.Rect(player.x, player.y+60, 50, 5))        
-        pygame.draw.rect(game_window,(0,255,0),pygame.Rect(player.x, player.y+60, bar_update, 5))
+        pygame.draw.rect(var.game_window,(0,0,0),pygame.Rect(player.x, player.y+60, 50, 5))        
+        pygame.draw.rect(var.game_window,(0,255,0),pygame.Rect(player.x, player.y+60, bar_update, 5))
     
     def hit(self,i):
         if col.hit(self.x,self.y,var.enemy_unit_x[i],var.enemy_unit_y[i],40):
@@ -42,11 +42,11 @@ class Enemy(object):
         self.drop=30
 
     def remove(self,i):
-            enemy_unit.remove(enemy_unit[i])
-            enemy_unit_x.remove(enemy_unit_x[i])
-            enemy_unit_y.remove(enemy_unit_y[i])
-            enemy_unit_drop.remove(enemy_unit_drop[i])
-            enemy_moving.remove (enemy_moving[i])        
+            var.enemy_unit.remove(var.enemy_unit[i])
+            var.var.enemy_unit_x.remove(var.enemy_unit_x[i])
+            var.enemy_unit_y.remove(var.enemy_unit_y[i])
+            var.enemy_unit_drop.remove(var.enemy_unit_drop[i])
+            var.enemy_moving.remove (var.enemy_moving[i])        
 #projectile
 class Projectile(object):
     def __init__(self):
@@ -64,9 +64,7 @@ class Projectile(object):
     def hit(self,i):
         if col.hit(self.x,self.y,var.enemy_unit_x[i],var.enemy_unit_y[i],40): 
             return True 
-       
-
-        
+               
 player=Player()
 projectile=Projectile()
 enemy=Enemy()

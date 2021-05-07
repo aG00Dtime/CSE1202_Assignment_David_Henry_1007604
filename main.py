@@ -32,9 +32,10 @@ while var.running:
         if event.type == pygame.QUIT:
                 var.running = False 
 
-    #player movement            
-    action = pygame.key.get_pressed()
-    if not var.game_over:
+    #player movement 
+    if not var.game_over:            
+        action = pygame.key.get_pressed()
+    
         if action[pygame.K_UP]: 
             player.y -= player.speed
 
@@ -113,9 +114,9 @@ while var.running:
                 enemy.amount-=1
                 enemy.remove(i)
             
-    #projectile hit
-    for i in range(enemy.amount):
-        if projectile.state:
+    #projectile hit    
+    if projectile.state:
+        for i in range(enemy.amount):    
             if projectile.hit(i):
                 func.draw(var.explosion_art,var.enemy_unit_x[i],var.enemy_unit_y[i]) 
                 var.score+=1                
@@ -123,10 +124,10 @@ while var.running:
                 projectile.state=False
                 projectile.reset()                  
                 enemy.remove(i)                   
-                func.sound(var.explosion)          
-            
+                func.sound(var.explosion)    
+        
     for i in range(enemy.amount):
-        if player.hit(i):
+        if player.hit(i): 
             func.draw(var.explosion_art,var.enemy_unit_x[i],var.enemy_unit_y[i])            
             player.health-=1
 
@@ -142,11 +143,8 @@ while var.running:
     if player.health <= 0 or var.escaped >= 5:
         var.game_over=True
 
-    if not var.game_over:
-        func.score_draw(var.score)
-        player.health_bar(var.bar_update)
-        func.draw(player.art,player.x,player.y)
+    #draw objects on the screen
+    func.redraw()
 
-        #refresh display
-        pygame.display.flip()
-        var.clock.tick(var.fps)
+    #fps    
+    var.clock.tick(var.fps)

@@ -1,4 +1,5 @@
 import pygame,modules.vars as var
+import modules.classes as classes
 
 def music():
     pygame.mixer.music.play(-1)
@@ -31,3 +32,10 @@ def game_over_text():
                     var.game_over=False 
                     var.running = False
                 
+def redraw():
+    if not var.game_over:
+        score_draw(var.score)
+        classes.player.health_bar(var.bar_update)
+        draw(classes.player.art,classes.player.x,classes.player.y)
+        pygame.display.flip()
+       
