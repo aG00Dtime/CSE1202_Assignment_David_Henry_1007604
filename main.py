@@ -12,14 +12,13 @@ pygame.init()
 #set display size and title
 pygame.display.set_caption("David Henry - 1007604 - CSE 1202")
 
-# game over text when player dies
+#game over text when player dies
 def game_over_text():
     global running
     global game_over
     font = pygame.font.SysFont('Verdana', 50)
     game_over_text=font.render("GAME OVER", 1, (255,255,255))
     func.draw(game_over_text,150,300)
-    # var.game_window.blit(game_over_text, (150, 300))
     pygame.display.flip()
 
     for event in pygame.event.get():
@@ -38,14 +37,14 @@ while welcome_show:
     var.game_window.blit(var.welcome,(0,0))
     pygame.display.flip()
 
-
+#play music
 func.play_music()
 while var.running:
     #game over  
     if var.game_over:
         game_over_text()
 
-        #close 
+    #close 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
                 var.running = False 
@@ -74,11 +73,10 @@ while var.running:
         #boundaries
         player.boundaries(player.x,player.y)
         
-    #background
-    #var.game_window.blit(var.bg,(0,0)) 
+    #background    
     func.draw(var.bg,0,0)
 
-     #projectile
+    #projectile
     if projectile.y <=0:
             projectile.state=False
             projectile.reset()
@@ -107,8 +105,7 @@ while var.running:
             var.enemy_moving.append(False)        
             enemy.spawn(var.enemy_unit[i],var.enemy_unit_x[i],var.enemy_unit_y[i])
 
-    #movement of enemies
-    
+        #movement of enemies    
         for i in range(enemy.amount):
             if  var.enemy_unit_x[i] >= 550:
                 var.enemy_unit_x[i]=550 
@@ -131,7 +128,7 @@ while var.running:
                 enemy.amount-=1
                 enemy.remove(i)
             
-    # projectile hit
+    #projectile hit
     for i in range(enemy.amount):
         if projectile.state:            
             if col.hit(projectile.x,projectile.y,var.enemy_unit_x[i],var.enemy_unit_y[i],40):
@@ -168,10 +165,7 @@ while var.running:
         func.score_draw(var.score)
         player.health_bar(var.bar_update)
         func.draw(player.art,player.x,player.y)
-        #var.game_window.blit(player.art,(player.x,player.y)) 
 
         #refresh display
         pygame.display.flip()
         var.clock.tick(var.fps)
-
-
