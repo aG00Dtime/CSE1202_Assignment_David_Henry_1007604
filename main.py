@@ -169,10 +169,12 @@ while running:
 
     #player
     if player.health <=0:
-        game_over=True 
+        game_over=True
+        
     #escaped check
     if escaped >=5:
         game_over=True
+        
 
     if not game_over:
         score_draw(score)
@@ -182,3 +184,5 @@ while running:
         #refresh display
         pygame.display.flip()
         clock.tick(fps)
+
+
