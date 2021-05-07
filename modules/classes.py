@@ -30,17 +30,18 @@ class Player(object):
             self.y=height/2 
 
     def health_bar(self,bar_update):
-        pygame.draw.rect(game_window,(0,0,0),pygame.Rect(player.x, player.y+60, 50, 5))
+        pygame.draw.rect(game_window,(0,0,0),pygame.Rect(player.x, player.y+60, 50, 5))        
         pygame.draw.rect(game_window,(0,255,0),pygame.Rect(player.x, player.y+60, bar_update, 5))
+        
 
        
 #enemy     
 class Enemy(object):
     def __init__(self) :
-        self.amount=10
+        self.amount=5
         self.art=pygame.image.load("art\\enemy.png").convert_alpha()
         self.speed=5
-        self.drop=60
+        self.drop=50
 
     def remove(self,i):
             enemy_unit.remove(enemy_unit[i])

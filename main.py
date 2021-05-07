@@ -1,7 +1,8 @@
 #imports
-import pygame 
+import pygame
+from pygame.constants import MOUSEBUTTONDOWN 
 from modules import collision as col
-from modules.vars import enemy_moving,enemy_unit,enemy_unit_drop,enemy_unit_x,enemy_unit_y,clock,fps,score,game_window,bar_update
+from modules.vars import enemy_moving,enemy_unit,enemy_unit_drop,enemy_unit_x,enemy_unit_y,clock,fps,score,game_window,bar_update,running,game_over,start_over,escaped
 from modules.classes import enemy,player,projectile,shield
 import random
 
@@ -13,7 +14,8 @@ shooting_sound=pygame.mixer.Sound("sound\\shoot.wav")
 explosion=pygame.mixer.Sound('sound\\explosion.wav')
 bg=pygame.image.load("art\\bg.png").convert()
 explosion_art=pygame.image.load("art\\explosion.png").convert_alpha()
-shield_art=pygame.image.load("art\\shield.png").convert()
+shield_art=pygame.image.load("art\\shield.png").convert_alpha()
+welcome=pygame.image.load("art\\welcome.png").convert()
 
 #volume
 pygame.mixer.Sound.set_volume(shooting_sound,0.015)
@@ -22,14 +24,14 @@ pygame.mixer.Sound.set_volume(explosion,0.05)
 #set display size and title
 pygame.display.set_caption("David Henry - 1007604 - CSE 1202")
 
-#running
-running = True
-game_over=False
+
 # draw score
 def score_draw(score):
         font = pygame.font.SysFont('Verdana', 20)
         score_text = font.render("Score : "+str(score), 1, (255,255,255))
-        game_window.blit(score_text, (5, 10))
+        game_window.blit(score_text, (5, 5))
+        escaped_text = font.render("Escaped : "+str(escaped)+"/5", 1, (255,255,255))
+        game_window.blit(escaped_text, (5, 30))
 
 # game over text when player dies
 def game_over_text():
@@ -43,10 +45,21 @@ def game_over_text():
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
                 running = False 
-                
-#main game loop
-while running:
 
+#show welcome screen
+welcome_show=True
+while welcome_show:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+                welcome_show = False 
+                running=False
+        if event.type==pygame.KEYDOWN:
+            welcome_show=False
+    game_window.blit(welcome,(0,0))
+    pygame.display.flip()
+
+
+while running:
     #game over  
     if game_over:
         game_over_text()
@@ -107,7 +120,7 @@ while running:
             enemy.spawn(enemy_unit[i],enemy_unit_x[i],enemy_unit_y[i])
 
     #movement of enemies
-    if not game_over:
+    
         for i in range(enemy.amount):
             if  enemy_unit_x[i] >= 550:
                 enemy_unit_x[i]=550 
@@ -125,6 +138,7 @@ while running:
                 enemy_unit_x[i]-=enemy.speed
 
             if  enemy_unit_y[i] >=750:
+                escaped+=1
                 enemy_unit_y[i]=0
                 enemy.amount-=1
                 enemy.remove(i)
@@ -156,6 +170,9 @@ while running:
     #player
     if player.health <=0:
         game_over=True 
+    #escaped check
+    if escaped >=5:
+        game_over=True
 
     if not game_over:
         score_draw(score)

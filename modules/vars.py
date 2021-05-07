@@ -18,3 +18,9 @@ enemy_unit_drop=[]
 enemy_moving=[]
 units=[]
 bar_update=50
+escaped=0
+
+
+running = True
+game_over=False
+start_over=False
