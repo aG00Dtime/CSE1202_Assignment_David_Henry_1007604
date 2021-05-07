@@ -111,11 +111,11 @@ while running:
     #reset enemy.amount
     if enemy.amount >= 100:
         enemy.amount = 100
-
+        enemy.drop+=50
     elif enemy.amount <= 0 :
         enemy.amount += int(score/2)
         enemy.speed += 1
-        enemy.drop += 5
+        enemy.drop += int(score/5)
         projectile.speed +=1
 
     #for loops to check enemies

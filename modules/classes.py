@@ -1,6 +1,5 @@
 #player
 import pygame
-import random
 from modules.vars import width,height
 from modules.vars import width,height,enemy_moving,enemy_unit,enemy_unit_drop,enemy_unit_x,enemy_unit_y,game_window
 
