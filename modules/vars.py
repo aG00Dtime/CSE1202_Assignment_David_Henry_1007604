@@ -23,4 +23,20 @@ escaped=0
 #states
 running = True
 game_over=False
-start_over=False
+
+#sounds and art
+pygame.init()
+shooting_sound=pygame.mixer.Sound("sound\\shoot.wav")
+explosion=pygame.mixer.Sound('sound\\explosion.wav')
+bg=pygame.image.load("art\\bg.png").convert()
+explosion_art=pygame.image.load("art\\explosion.png").convert_alpha()
+shield_art=pygame.image.load("art\\shield.png").convert_alpha()
+welcome=pygame.image.load("art\\welcome.png").convert()
+pygame.mixer.music.load("sound\\music.wav")
+#volume
+pygame.mixer.Sound.set_volume(shooting_sound,0.015)
+pygame.mixer.Sound.set_volume(explosion,0.05)
+
+
+
+
