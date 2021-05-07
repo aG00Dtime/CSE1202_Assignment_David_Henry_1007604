@@ -15,7 +15,8 @@ class Player(object):
         #speed
         self.speed=5
         #art
-        self.art=pygame.image.load("art\\ship.png")
+        self.art=pygame.image.load("art\\ship.png").convert_alpha()
+        
 
         #keep player inside the window
     def boundaries(self,x,y):
@@ -37,7 +38,7 @@ class Player(object):
 class Enemy(object):
     def __init__(self) :
         self.amount=10
-        self.art=pygame.image.load("art\\enemy.png")
+        self.art=pygame.image.load("art\\enemy.png").convert_alpha()
         self.speed=5
         self.drop=60
 
@@ -55,7 +56,7 @@ class Enemy(object):
 class Projectile(object):
     def __init__(self):
         self.state=False
-        self.art=pygame.image.load("art\\bullet.png")
+        self.art=pygame.image.load("art\\bullet.png").convert_alpha()
         self.speed=20
         self.x=player.x+15
         self.y=player.y

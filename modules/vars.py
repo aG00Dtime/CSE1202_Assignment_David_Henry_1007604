@@ -16,5 +16,5 @@ enemy_unit_x=[]
 enemy_unit_y=[]
 enemy_unit_drop=[]
 enemy_moving=[]
-
+units=[]
 bar_update=50

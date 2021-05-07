@@ -11,9 +11,9 @@ pygame.init()
 #sounds and art
 shooting_sound=pygame.mixer.Sound("sound\\shoot.wav")
 explosion=pygame.mixer.Sound('sound\\explosion.wav')
-bg=pygame.image.load("art\\bg.png")
-explosion_art=pygame.image.load("art\\explosion.png")
-shield_art=pygame.image.load("art\\shield.png")
+bg=pygame.image.load("art\\bg.png").convert()
+explosion_art=pygame.image.load("art\\explosion.png").convert_alpha()
+shield_art=pygame.image.load("art\\shield.png").convert()
 
 #volume
 pygame.mixer.Sound.set_volume(shooting_sound,0.015)
@@ -79,7 +79,7 @@ while running:
 
         #boundaries
         player.boundaries(player.x,player.y)
-
+        
     #background
     game_window.blit(bg,(0,0)) 
 
