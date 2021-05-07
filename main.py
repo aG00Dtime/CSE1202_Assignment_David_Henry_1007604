@@ -61,6 +61,7 @@ while welcome_show:
 
 pygame.mixer.music.load("sound\\music.wav")
 pygame.mixer.music.play(-1)
+
 while running:
     #game over  
     if game_over:
@@ -108,8 +109,14 @@ while running:
         projectile.y-=projectile.speed
 
     #reset enemy.amount
-    if enemy.amount <= 0 :
-        enemy.amount = 10   
+    if enemy.amount >= 100:
+        enemy.amount = 100
+
+    elif enemy.amount <= 0 :
+        enemy.amount += int(score/2)
+        enemy.speed += 1
+        enemy.drop += 5
+        projectile.speed +=1
 
     #for loops to check enemies
     if not game_over:
