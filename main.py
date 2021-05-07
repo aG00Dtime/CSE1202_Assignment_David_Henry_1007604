@@ -2,8 +2,8 @@
 import pygame
 from pygame.constants import MOUSEBUTTONDOWN 
 from modules import collision as col
-from modules.vars import enemy_moving,enemy_unit,enemy_unit_drop,enemy_unit_x,enemy_unit_y,clock,fps,score,game_window,bar_update,running,game_over,start_over,escaped
-from modules.classes import enemy,player,projectile,shield
+from modules.vars import enemy_moving,enemy_unit,enemy_unit_drop,enemy_unit_x,enemy_unit_y,clock,fps,score,game_window,bar_update,running,game_over,escaped
+from modules.classes import enemy,player,projectile
 import random
 
 #startup 
@@ -11,6 +11,7 @@ pygame.init()
 
 #sounds and art
 shooting_sound=pygame.mixer.Sound("sound\\shoot.wav")
+
 explosion=pygame.mixer.Sound('sound\\explosion.wav')
 bg=pygame.image.load("art\\bg.png").convert()
 explosion_art=pygame.image.load("art\\explosion.png").convert_alpha()
@@ -58,7 +59,8 @@ while welcome_show:
     game_window.blit(welcome,(0,0))
     pygame.display.flip()
 
-
+pygame.mixer.music.load("sound\\music.wav")
+pygame.mixer.music.play(-1)
 while running:
     #game over  
     if game_over:

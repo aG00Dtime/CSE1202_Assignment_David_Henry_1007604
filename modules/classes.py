@@ -72,8 +72,6 @@ class Shield(object):
         self.health=5
         self.active=False
         
-
-
 player=Player()
 projectile=Projectile()
 enemy=Enemy()
