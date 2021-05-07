@@ -10,14 +10,14 @@ pygame.init()
 pygame.display.set_caption("David Henry - 1007604 - CSE 1202")
 
 #show welcome screen
-welcome_show=True
+welcome_show = True
 while welcome_show:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
                 welcome_show = False 
-                running=False
-        elif event.type==pygame.KEYDOWN:
-            welcome_show=False    
+                running = False
+        elif event.type == pygame.KEYDOWN:
+            welcome_show = False    
     func.draw(var.welcome,0,0)
     pygame.display.flip()
 
@@ -50,7 +50,7 @@ while var.running:
 
         if action[pygame.K_SPACE]:
             if not projectile.state:
-                projectile.state=True
+                projectile.state = True
                 func.sound(var.shooting_sound)
                 projectile.reset() 
 
@@ -61,18 +61,18 @@ while var.running:
     func.draw(var.bg,0,0)
 
     #projectile
-    if projectile.y <=0:
+    if projectile.y <= 0:
             projectile.state=False
             projectile.reset()
 
     if projectile.state:
         func.draw(projectile.art,projectile.x,projectile.y)        
-        projectile.y-=projectile.speed
+        projectile.y -= projectile.speed
 
     #reset enemy.amount
     if enemy.amount >= 100:
         enemy.amount = 100
-        enemy.drop+=50
+        enemy.drop += 50
 
     elif enemy.amount <= 0 :
         enemy.amount += int(var.score/2)
@@ -94,24 +94,24 @@ while var.running:
         for i in range(enemy.amount):
 
             if  var.enemy_moving[i]:
-                var.enemy_unit_x[i]+=enemy.speed
+                var.enemy_unit_x[i] += enemy.speed
             else:            
-                var.enemy_unit_x[i]-=enemy.speed
+                var.enemy_unit_x[i] -= enemy.speed
 
             if  var.enemy_unit_x[i] >= 550:
-                var.enemy_unit_x[i]=550 
-                var.enemy_unit_y[i]+=var.enemy_unit_drop[i] 
-                var.enemy_moving[i]=False
+                var.enemy_unit_x[i] = 550 
+                var.enemy_unit_y[i] += var.enemy_unit_drop[i] 
+                var.enemy_moving[i] = False
 
             elif var.enemy_unit_x[i] <= 0:
-                var.enemy_unit_x[i]=0
-                var.enemy_unit_y[i]+=var.enemy_unit_drop[i]
-                var.enemy_moving[i]=True
+                var.enemy_unit_x[i] = 0
+                var.enemy_unit_y[i] += var.enemy_unit_drop[i]
+                var.enemy_moving[i] = True
 
             if  var.enemy_unit_y[i] >=750:
-                var.escaped+=1
-                var.enemy_unit_y[i]=0
-                enemy.amount-=1
+                var.escaped += 1
+                var.enemy_unit_y[i] = 0
+                enemy.amount -= 1
                 enemy.remove(i)
             
     #projectile hit    
@@ -119,8 +119,8 @@ while var.running:
         for i in range(enemy.amount):    
             if projectile.hit(i):
                 func.draw(var.explosion_art,var.enemy_unit_x[i],var.enemy_unit_y[i]) 
-                var.score+=1                
-                enemy.amount-=1        
+                var.score += 1                
+                enemy.amount -= 1        
                 projectile.state=False
                 projectile.reset()                  
                 enemy.remove(i)                   
@@ -129,19 +129,19 @@ while var.running:
     for i in range(enemy.amount):
         if player.hit(i): 
             func.draw(var.explosion_art,var.enemy_unit_x[i],var.enemy_unit_y[i])            
-            player.health-=1
+            player.health -= 1
 
             if player.health <= 0:
-                player.health=0
+                player.health = 0
                 
-            var.bar_update=player.health*10             
+            var.bar_update = player.health * 10             
             func.sound(var.explosion) 
             enemy.remove(i)
-            enemy.amount-=1 
+            enemy.amount -= 1 
 
     #game over
     if player.health <= 0 or var.escaped >= 5:
-        var.game_over=True
+        var.game_over = True
 
     #draw objects on the screen
     func.redraw()

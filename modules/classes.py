@@ -1,7 +1,5 @@
 import pygame,modules.collision as col,modules.vars as var
 
-
-
 #player
 class Player(object):
     def __init__(self):
