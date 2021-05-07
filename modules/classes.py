@@ -43,7 +43,7 @@ class Enemy(object):
 
     def remove(self,i):
             var.enemy_unit.remove(var.enemy_unit[i])
-            var.var.enemy_unit_x.remove(var.enemy_unit_x[i])
+            var.enemy_unit_x.remove(var.enemy_unit_x[i])
             var.enemy_unit_y.remove(var.enemy_unit_y[i])
             var.enemy_unit_drop.remove(var.enemy_unit_drop[i])
             var.enemy_moving.remove (var.enemy_moving[i])        
