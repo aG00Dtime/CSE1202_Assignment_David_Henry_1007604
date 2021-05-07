@@ -26,8 +26,8 @@ class Player(object):
             self.x=0
         if y >= 750:
             self.y=750
-        if y <=height/2:
-            self.y=height/2 
+        if y <=600:
+            self.y=600 
 
     def health_bar(self,bar_update):
         pygame.draw.rect(game_window,(0,0,0),pygame.Rect(player.x, player.y+60, 50, 5))        
