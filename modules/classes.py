@@ -65,12 +65,9 @@ class Projectile(object):
         if col.hit(self.x,self.y,var.enemy_unit_x[i],var.enemy_unit_y[i],40): 
             return True 
        
-class Shield(object):
-    def __init__(self):
-        self.health=5
-        self.active=False
+
         
 player=Player()
 projectile=Projectile()
 enemy=Enemy()
-shield=Shield()
+
