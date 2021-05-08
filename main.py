@@ -1,7 +1,7 @@
 #imports
-import pygame,random
+import pygame
 import modules.vars as var,modules.misc as func
-from modules.classes import enemy,player,projectile
+from modules.classes import player,projectile
 
 #startup 
 pygame.init()
@@ -26,37 +26,13 @@ func.music()
 while var.running:
     #game over  check    
     func.game_over_text()
-
     #close 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
                 var.running = False 
-
     #player movement 
-    if not var.game_over:            
-        action = pygame.key.get_pressed()
-    
-        if action[pygame.K_UP]: 
-            player.y -= player.speed
+    func.player_movement() 
 
-        if action[pygame.K_DOWN]: 
-            player.y += player.speed
-
-        if action[pygame.K_LEFT]: 
-            player.x -= player.speed
-
-        if action[pygame.K_RIGHT]: 
-            player.x += player.speed 
-
-        if action[pygame.K_SPACE]:
-            if not projectile.state:
-                projectile.state = True
-                func.sound(var.shooting_sound)
-                projectile.reset() 
-
-        #boundaries
-        player.boundaries(player.x,player.y)
-        
     #background    
     func.draw(var.bg,0,0)
 
@@ -64,87 +40,25 @@ while var.running:
     if projectile.y <= 0:
             projectile.state=False
             projectile.reset()
-
     if projectile.state:
         func.draw(projectile.art,projectile.x,projectile.y)        
         projectile.y -= projectile.speed
 
     #reset enemy.amount
-    if enemy.amount >= 100:
-        enemy.amount = 100
-        enemy.drop += 50
-
-    elif enemy.amount <= 0 :
-        enemy.amount += int(var.score/2)
-        enemy.speed += 1
-        enemy.drop += int(var.score/5)
-        projectile.speed +=1
-
+    func.enemy_update()
+    
     #for loops to check enemies
-    if not var.game_over:
-        for i in range(enemy.amount):
-            var.enemy_unit.append(enemy.art)
-            var.enemy_unit_x.append(random.randint(0,550))
-            var.enemy_unit_y.append(random.randint(0,250))  
-            var.enemy_unit_drop.append(enemy.drop)
-            var.enemy_moving.append(False)        
-            func.draw(var.enemy_unit[i],var.enemy_unit_x[i],var.enemy_unit_y[i])
-
+    if not var.game_over:        
+        func.create_enemies()
         #movement of enemies    
-        for i in range(enemy.amount):
-
-            if  var.enemy_moving[i]:
-                var.enemy_unit_x[i] += enemy.speed
-            else:            
-                var.enemy_unit_x[i] -= enemy.speed
-
-            if  var.enemy_unit_x[i] >= 550:
-                var.enemy_unit_x[i] = 550 
-                var.enemy_unit_y[i] += var.enemy_unit_drop[i] 
-                var.enemy_moving[i] = False
-
-            elif var.enemy_unit_x[i] <= 0:
-                var.enemy_unit_x[i] = 0
-                var.enemy_unit_y[i] += var.enemy_unit_drop[i]
-                var.enemy_moving[i] = True
-
-            if  var.enemy_unit_y[i] >=750:
-                var.escaped += 1
-                var.enemy_unit_y[i] = 0
-                enemy.amount -= 1
-                enemy.remove(i)
-            
+        func.enemy_movement()            
     #projectile hit    
-    if projectile.state:
-        for i in range(enemy.amount):    
-            if projectile.hit(i):
-                func.draw(var.explosion_art,var.enemy_unit_x[i],var.enemy_unit_y[i]) 
-                var.score += 1                
-                enemy.amount -= 1        
-                projectile.state=False
-                projectile.reset()                  
-                enemy.remove(i)                   
-                func.sound(var.explosion)    
-        
-    for i in range(enemy.amount):
-        if player.hit(i): 
-            func.draw(var.explosion_art,var.enemy_unit_x[i],var.enemy_unit_y[i])            
-            player.health -= 1
-
-            if player.health <= 0:
-                player.health = 0
-                
-            var.bar_update = player.health * 10             
-            func.sound(var.explosion) 
-            enemy.remove(i)
-            enemy.amount -= 1 
-
+    func.collision_check()
+    func.redraw()
     #game over
     if player.health <= 0 or var.escaped >= 5:
         var.game_over = True
-
     #draw objects on the screen
     func.redraw()
-
     #fps    
     var.clock.tick(var.fps)
