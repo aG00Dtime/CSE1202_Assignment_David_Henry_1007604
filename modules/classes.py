@@ -34,9 +34,9 @@ class Player(object):
 #enemy     
 class Enemy(object):
     def __init__(self) :
-        self.amount=10
-        self.art=pygame.image.load("art\\enemy.png").convert_alpha()
-        self.speed=10
+        self.amount=5
+        #self.art=pygame.image.load("art\\enemy.png").convert_alpha()
+        self.speed=2
         self.drop=30
 
     def remove(self,i):

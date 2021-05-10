@@ -70,13 +70,13 @@ def player_movement():
 
 def enemy_update():
 
-    if classes.enemy.amount >= 100:
-        classes.enemy.amount = 100
-        classes.enemy.drop += 50
+    if classes.enemy.amount >= 50:
+        classes.enemy.amount = 50
+        classes.enemy.drop += 40
 
     elif classes.enemy.amount <= 0 :
-        classes.enemy.amount += int(var.score/2)
-        classes.enemy.speed += 1
+        classes.enemy.amount += 5 + int(var.score/2)
+        classes.enemy.speed += 3
         classes.enemy.drop += int(var.score/5)
         classes.projectile.speed +=1 
 
@@ -84,7 +84,7 @@ def enemy_update():
 def create_enemies():    
     #create a list of enemies 
     for i in range(classes.enemy.amount):
-            var.enemy_unit.append(classes.enemy.art)
+            var.enemy_unit.append(pygame.image.load("art\\enemy" +str(random.randrange(1,5))+".png").convert_alpha())
             var.enemy_unit_x.append(random.randint(0,550))
             var.enemy_unit_y.append(random.randint(0,250))  
             var.enemy_unit_drop.append(classes.enemy.drop)

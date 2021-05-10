@@ -1,3 +1,4 @@
+
 import pygame
 
 #frames
@@ -40,6 +41,7 @@ pygame.mixer.music.load("sound\\music.wav")
 #volume
 pygame.mixer.Sound.set_volume(shooting_sound,0.015)
 pygame.mixer.Sound.set_volume(explosion,0.05)
+pygame.mixer.music.set_volume(0.04)
 
 
 

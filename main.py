@@ -3,7 +3,7 @@ import pygame
 import modules.vars as var,modules.misc as func
 from modules.classes import player,projectile
 
-#startup 
+#startup
 pygame.init()
 
 #set display size and title
@@ -14,26 +14,27 @@ welcome_show = True
 while welcome_show:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-                welcome_show = False 
+                welcome_show = False
                 running = False
         elif event.type == pygame.KEYDOWN:
-            welcome_show = False    
+            welcome_show = False
     func.draw(var.welcome,0,0)
     pygame.display.flip()
 
 #play music
 func.music()
 while var.running:
-    #game over  check    
+    #game over  check
     func.game_over_text()
-    #close 
+    
+    #close
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-                var.running = False 
-    #player movement 
-    func.player_movement() 
+                var.running = False
+    #player movement
+    func.player_movement()
 
-    #background    
+    #background
     func.draw(var.bg,0,0)
 
     #projectile
@@ -41,24 +42,30 @@ while var.running:
             projectile.state=False
             projectile.reset()
     if projectile.state:
-        func.draw(projectile.art,projectile.x,projectile.y)        
+        func.draw(projectile.art,projectile.x,projectile.y)
         projectile.y -= projectile.speed
 
     #reset enemy.amount
     func.enemy_update()
-    
+
     #for loops to check enemies
-    if not var.game_over:        
+    if not var.game_over:
         func.create_enemies()
-        #movement of enemies    
-        func.enemy_movement()            
-    #projectile hit    
+
+        #movement of enemies
+        func.enemy_movement()
+
+    #projectile hit
     func.collision_check()
-    func.redraw()
+
     #game over
     if player.health <= 0 or var.escaped >= 5:
         var.game_over = True
+
     #draw objects on the screen
     func.redraw()
-    #fps    
+
+    #fps
     var.clock.tick(var.fps)
+
+
