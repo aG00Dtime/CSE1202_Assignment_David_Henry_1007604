@@ -26,7 +26,9 @@ while welcome_show:
 
 # play music
 func.music()
+# main loop
 while var.running:
+
     # game over  check
     func.game_over_text()
 
@@ -38,7 +40,6 @@ while var.running:
     func.player_movement()
 
     # background
-
     func.draw(var.bg, 0, 0)
 
     # projectile

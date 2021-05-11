@@ -5,10 +5,12 @@ import random
 import modules.classes as classes
 
 
+# play music
 def music():
     pygame.mixer.music.play(-1)
 
 
+# draw the score on the screen
 def score_draw(score):
     font = pygame.font.SysFont('Verdana', 20)
     score_text = font.render("Score : " + str(score), True, (255, 255, 255))
@@ -17,14 +19,17 @@ def score_draw(score):
     var.game_window.blit(escaped_text, (5, 30))
 
 
+# function to draw things
 def draw(img, x, y):
     var.game_window.blit(img, (x, y))
 
 
+# play sound effects
 def sound(sound_effect):
     pygame.mixer.Sound.play(sound_effect)
 
 
+# game over message
 def game_over_text():
     if var.game_over:
 
@@ -40,6 +45,7 @@ def game_over_text():
                 var.running = False
 
 
+# update screen objects
 def redraw():
     if not var.game_over:
         score_draw(var.score)
@@ -48,6 +54,7 @@ def redraw():
         pygame.display.flip()
 
 
+# handles player movement
 def player_movement():
     if not var.game_over:
         action = pygame.key.get_pressed()
@@ -73,6 +80,7 @@ def player_movement():
         classes.player.boundaries(classes.player.x, classes.player.y)
 
 
+# update enemy list
 def enemy_update():
     if classes.enemy.amount >= 50:
         classes.enemy.amount = 50
@@ -85,6 +93,7 @@ def enemy_update():
         classes.projectile.speed += 1
 
 
+# create enemies and append them to a list
 def create_enemies():
     # create a list of enemies 
     for i in range(classes.enemy.amount):
@@ -96,6 +105,7 @@ def create_enemies():
         draw(var.enemy_unit[i], var.enemy_unit_x[i], var.enemy_unit_y[i])
 
 
+# handles enemy movement
 def enemy_movement():
     # handles the enemy movement , change their direction when they hit the walls
     for i in range(classes.enemy.amount):
@@ -122,16 +132,17 @@ def enemy_movement():
             classes.enemy.remove(i)
 
 
+# collision check
 def collision_check():
     if classes.projectile.state:
         for i in range(classes.enemy.amount):
             if classes.projectile.hit(i):
                 draw(var.explosion_art, var.enemy_unit_x[i], var.enemy_unit_y[i])
                 var.score += 1
+                classes.enemy.remove(i)
                 classes.enemy.amount -= 1
                 classes.projectile.state = False
                 classes.projectile.reset()
-                classes.enemy.remove(i)
                 sound(var.explosion)
 
     for i in range(classes.enemy.amount):

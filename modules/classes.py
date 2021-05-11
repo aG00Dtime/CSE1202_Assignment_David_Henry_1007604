@@ -6,18 +6,21 @@ import pygame
 # player
 class Player(object):
     def __init__(self):
+
         # starting position
         self.x = (var.width - 50) / 2
         self.y = var.height - 100
+
         # health
         self.health = 5
+
         # speed
-        self.speed = 5
+        self.speed = 10
+
         # art
         self.art = pygame.image.load("art\\ship.png").convert_alpha()
 
-        # keep player inside the window
-
+    # keep player inside the window
     def boundaries(self, x, y):
         if x >= 550:
             self.x = 550
@@ -46,6 +49,7 @@ class Enemy(object):
         self.speed = 2
         self.drop = 30
 
+    # remove enemies from the list after they are destroyed
     @staticmethod
     def remove(i):
         var.enemy_unit.remove(var.enemy_unit[i])
