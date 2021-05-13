@@ -27,8 +27,10 @@ while welcome_show:
 
 # play music
 func.music()
+
 # main loop
 while var.running:
+    # screen title with fps
     pygame.display.set_caption("David Henry - 1007604 - CSE 1202 -FPS :{}".format(var.clock.get_fps()))
     # game over  check
     func.game_over_text()
@@ -37,8 +39,6 @@ while var.running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             var.running = False
-    # player movement
-    func.player_movement()
 
     # background
     func.draw(var.bg, 0, 0)
@@ -58,15 +58,16 @@ while var.running:
         func.enemy_update()
         func.enemy_movement()
 
-    # projectile hit
+        # projectile hit
         func.collision_check()
-
     # game over
     if player.health <= 0 or var.escaped >= 5:
         var.game_over = True
 
     # draw objects on the screen
     func.redraw()
+    # player movement
+    func.player_movement()
 
     # fps
     var.clock.tick(var.fps)

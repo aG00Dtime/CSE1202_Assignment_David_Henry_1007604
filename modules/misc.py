@@ -1,8 +1,10 @@
 import modules.vars as var
 import pygame
 import random
-
+import os
 import modules.classes as classes
+
+path = os.getcwd()
 
 
 # play music
@@ -12,11 +14,13 @@ def music():
 
 # draw the score on the screen
 def score_draw(score):
-    font = pygame.font.SysFont('Verdana', 20)
-    score_text = font.render("Score : " + str(score), True, (255, 255, 255))
+    font = pygame.font.Font(path + "\\font\\New Space.ttf", 25)
+    score_text = font.render("Score : " + str(score), True, (175, 167, 212))
+    escaped_text = font.render("Escaped : " + str(var.escaped) + "/5", True, (175, 167, 212))
+    stage_text = font.render("Stage : " + str(var.stage), True, (175, 167, 212))
     var.game_window.blit(score_text, (5, 5))
-    escaped_text = font.render("Escaped : " + str(var.escaped) + "/5", True, (255, 255, 255))
-    var.game_window.blit(escaped_text, (5, 30))
+    var.game_window.blit(stage_text, (5, 30))
+    var.game_window.blit(escaped_text, (5, 55))
 
 
 # function to draw things
@@ -34,7 +38,7 @@ def game_over_text():
     if var.game_over:
 
         pygame.mixer.music.stop()
-        font = pygame.font.SysFont('Verdana', 50)
+        font = pygame.font.Font(path + "\\font\\ArtisualDeco.ttf", 50)
         game_over_message = font.render("GAME OVER", True, (255, 255, 255))
         draw(game_over_message, 150, 300)
         pygame.display.update()
@@ -84,20 +88,20 @@ def player_movement():
 def enemy_update():
     if classes.enemy.amount >= 50:
         classes.enemy.amount = 50
-        classes.enemy.drop += 40
+        classes.enemy.drop += 50
 
     if classes.enemy.amount <= 0:
-        classes.enemy.amount += 5 + int(var.score / 2)
-        classes.enemy.speed += .5
-        classes.enemy.drop += int(var.score / 5)
-        classes.projectile.speed += 1
+        if classes.enemy.amount < 50:
+            classes.enemy.amount += 5 + int(var.score * .5)
+        classes.enemy.speed += 2
+        classes.enemy.drop += int(var.score * .25)
+        classes.projectile.speed += 5
 
 
 # create enemies and append them to a list
 
 
 def create_enemies():
-
     if var.enemies_alive:
         art = var.enemy_art_list[4]
     else:
@@ -116,6 +120,7 @@ def create_enemies():
     else:
         var.enemies_alive = False
         var.enemy_unit.clear()
+        var.stage += 1
 
 
 # handles enemy movement
@@ -168,5 +173,7 @@ def collision_check():
 
             var.bar_update = classes.player.health * 10
             sound(var.explosion)
-            classes.enemy.remove(i)
             classes.enemy.amount -= 1
+            classes.enemy.remove(i)
+
+

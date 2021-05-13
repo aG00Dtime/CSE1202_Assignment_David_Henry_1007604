@@ -10,7 +10,7 @@ killed = 0
 
 # windows size
 width = 600
-height = 800
+height = 700
 game_window = pygame.display.set_mode((width, height))
 
 # enemy
@@ -19,7 +19,7 @@ enemy_unit_x = []
 enemy_unit_y = []
 enemy_unit_drop = []
 enemy_moving = []
-
+stage=1
 # health bar
 bar_update = 50
 
