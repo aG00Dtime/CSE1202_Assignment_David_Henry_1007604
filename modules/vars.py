@@ -29,18 +29,18 @@ escaped = 0
 # states
 running = True
 game_over = False
-
+enemies_alive=False
 # sounds and art
 pygame.init()
-enemy_art_list = [pygame.image.load("art\\enemy1.png").convert_alpha(),
-                  pygame.image.load("art\\enemy2.png").convert_alpha(),
-                  pygame.image.load("art\\enemy3.png").convert_alpha(),
-                  pygame.image.load("art\\enemy4.png").convert_alpha()]
+enemy_art_list = [pygame.transform.scale(pygame.image.load("art\\enemy1.png").convert_alpha(),(50,50)),
+                  pygame.transform.scale(pygame.image.load("art\\enemy2.png").convert_alpha(),(50,50)),
+                  pygame.transform.scale(pygame.image.load("art\\enemy3.png").convert_alpha(),(50,50)),
+                  pygame.transform.scale(pygame.image.load("art\\enemy4.png").convert_alpha(),(50,50))]
 #
 shooting_sound = pygame.mixer.Sound("sound\\shoot.wav")
 explosion = pygame.mixer.Sound('sound\\explosion.wav')
 bg = pygame.image.load("art\\bg.png").convert()
-explosion_art = pygame.image.load("art\\explosion.png").convert_alpha()
+explosion_art = pygame.transform.scale(pygame.image.load("art\\explosion.png").convert_alpha(),(50,50))
 shield_art = pygame.image.load("art\\shield.png").convert_alpha()
 welcome = pygame.image.load("art\\welcome.png").convert()
 pygame.mixer.music.load("sound\\music.wav")

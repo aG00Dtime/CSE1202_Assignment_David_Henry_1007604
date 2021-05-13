@@ -18,7 +18,7 @@ class Player(object):
         self.speed = 10
 
         # art
-        self.art = pygame.image.load("art\\ship.png").convert_alpha()
+        self.art = pygame.transform.scale(pygame.image.load("art\\ship.png").convert_alpha(),(50,50))
 
     # keep player inside the window
     def boundaries(self, x, y):
@@ -51,12 +51,12 @@ class Enemy(object):
 
     # remove enemies from the list after they are destroyed
     @staticmethod
-    def remove(i):
-        var.enemy_unit.remove(var.enemy_unit[i])
-        var.enemy_unit_x.remove(var.enemy_unit_x[i])
-        var.enemy_unit_y.remove(var.enemy_unit_y[i])
-        var.enemy_unit_drop.remove(var.enemy_unit_drop[i])
-        var.enemy_moving.remove(var.enemy_moving[i])
+    def remove(enemy_id):
+        var.enemy_unit.remove(var.enemy_unit[enemy_id])
+        var.enemy_unit_x.remove(var.enemy_unit_x[enemy_id])
+        var.enemy_unit_y.remove(var.enemy_unit_y[enemy_id])
+        var.enemy_unit_drop.remove(var.enemy_unit_drop[enemy_id])
+        var.enemy_moving.remove(var.enemy_moving[enemy_id])
 
 
 # projectile

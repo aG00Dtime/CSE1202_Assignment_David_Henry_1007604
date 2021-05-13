@@ -37,7 +37,7 @@ def game_over_text():
         font = pygame.font.SysFont('Verdana', 50)
         game_over_message = font.render("GAME OVER", True, (255, 255, 255))
         draw(game_over_message, 150, 300)
-        pygame.display.flip()
+        pygame.display.update()
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -82,28 +82,45 @@ def player_movement():
 
 # update enemy list
 def enemy_update():
+
     if classes.enemy.amount >= 50:
         classes.enemy.amount = 50
         classes.enemy.drop += 40
 
-    elif classes.enemy.amount <= 0:
+    if classes.enemy.amount <= 0:
+        var.enemies_alive=False
         classes.enemy.amount += 5 + int(var.score / 2)
-        classes.enemy.speed += 3
+        classes.enemy.speed += .5
         classes.enemy.drop += int(var.score / 5)
         classes.projectile.speed += 1
-
+        
+        
 
 # create enemies and append them to a list
-def create_enemies():
-    # create a list of enemies 
+def create_enemies():   
+    # create a list of enemies         
+        
+    if not var.enemies_alive:
+        random_enemy_art=var.enemy_art_list[1]
+    else:
+        
+        random_enemy_art=var.enemy_art_list[random.randrange(0,4)]
+
+
     for i in range(classes.enemy.amount):
-        var.enemy_unit.append(random.choice(var.enemy_art_list))
+        var.enemy_unit.append(random_enemy_art)
         var.enemy_unit_x.append(random.randint(0, 550))
-        var.enemy_unit_y.append(random.randint(0, 250))
+        var.enemy_unit_y.append(random.randint(0, 300))
         var.enemy_unit_drop.append(classes.enemy.drop)
         var.enemy_moving.append(False)
         draw(var.enemy_unit[i], var.enemy_unit_x[i], var.enemy_unit_y[i])
 
+    var.enemies_alive=True
+    
+    
+    
+
+    
 
 # handles enemy movement
 def enemy_movement():
@@ -138,12 +155,12 @@ def collision_check():
         for i in range(classes.enemy.amount):
             if classes.projectile.hit(i):
                 draw(var.explosion_art, var.enemy_unit_x[i], var.enemy_unit_y[i])
-                var.score += 1
-                classes.enemy.remove(i)
                 classes.enemy.amount -= 1
+                classes.enemy.remove(i)
                 classes.projectile.state = False
-                classes.projectile.reset()
+                classes.projectile.reset()                
                 sound(var.explosion)
+                var.score += 1
 
     for i in range(classes.enemy.amount):
         if classes.player.hit(i):
