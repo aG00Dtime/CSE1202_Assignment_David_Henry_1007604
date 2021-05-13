@@ -97,13 +97,9 @@ def enemy_update():
 
 
 def create_enemies():
-    # create a list of enemies         
 
-    # random_enemy_art = var.enemy_art_list[1]
-    # else:
-    # random_enemy_art = var.enemy_art_list[random.randrange(0, 4)]
     if var.enemies_alive:
-        art = var.enemy_art_list[0]
+        art = var.enemy_art_list[4]
     else:
         art = var.enemy_art_list[random.randrange(0, 4)]
 
@@ -113,6 +109,7 @@ def create_enemies():
         var.enemy_unit_y.append(random.randint(0, 300))
         var.enemy_unit_drop.append(classes.enemy.drop)
         var.enemy_moving.append(False)
+        draw(var.enemy_unit[i], var.enemy_unit_x[i], var.enemy_unit_y[i])
 
     if classes.enemy.amount != 0:
         var.enemies_alive = True

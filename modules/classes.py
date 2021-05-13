@@ -16,7 +16,7 @@ class Player(object):
         self.health = 5
 
         # speed
-        self.speed = 10
+        self.speed = 5
 
         # art
         self.art = pygame.transform.scale(pygame.image.load("art\\ship.png").convert_alpha(), (50, 50))
@@ -34,8 +34,8 @@ class Player(object):
 
     @staticmethod
     def health_bar(bar_update):
-        pygame.draw.rect(var.game_window, (0, 0, 0), pygame.Rect(player.x, player.y + 60, 50, 5))
-        pygame.draw.rect(var.game_window, (0, 255, 0), pygame.Rect(player.x, player.y + 60, bar_update, 5))
+        pygame.draw.rect(var.game_window, (55, 54, 78), pygame.Rect(player.x, player.y + 60, 50, 5))
+        pygame.draw.rect(var.game_window, (89, 155, 134), pygame.Rect(player.x, player.y + 60, bar_update, 5))
 
     def hit(self, i):
         if col.hit(self.x, self.y, var.enemy_unit_x[i], var.enemy_unit_y[i], 40):
@@ -47,7 +47,7 @@ class Enemy(object):
     def __init__(self):
         self.amount = 5
         # self.art=pygame.image.load("art\\enemy" +str(random.randrange(1,5))+".png").convert_alpha()
-        self.speed = 2
+        self.speed = 10
         self.drop = 30
 
     # remove enemies from the list after they are destroyed

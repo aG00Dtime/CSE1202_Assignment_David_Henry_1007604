@@ -54,14 +54,12 @@ while var.running:
     # for loops to check enemies
     if not var.game_over:
         func.create_enemies()
-
-    enemy.draw()
-    # movement of enemies
-    func.enemy_update()
-    func.enemy_movement()
+        # movement of enemies
+        func.enemy_update()
+        func.enemy_movement()
 
     # projectile hit
-    func.collision_check()
+        func.collision_check()
 
     # game over
     if player.health <= 0 or var.escaped >= 5:
