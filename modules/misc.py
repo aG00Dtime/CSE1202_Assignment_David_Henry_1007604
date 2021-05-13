@@ -82,45 +82,44 @@ def player_movement():
 
 # update enemy list
 def enemy_update():
-
     if classes.enemy.amount >= 50:
         classes.enemy.amount = 50
         classes.enemy.drop += 40
 
     if classes.enemy.amount <= 0:
-        var.enemies_alive=False
         classes.enemy.amount += 5 + int(var.score / 2)
         classes.enemy.speed += .5
         classes.enemy.drop += int(var.score / 5)
         classes.projectile.speed += 1
-        
-        
+
 
 # create enemies and append them to a list
-def create_enemies():   
-    # create a list of enemies         
-        
-    if not var.enemies_alive:
-        random_enemy_art=var.enemy_art_list[1]
-    else:
-        
-        random_enemy_art=var.enemy_art_list[random.randrange(0,4)]
 
+
+def create_enemies():
+    # create a list of enemies         
+
+    # random_enemy_art = var.enemy_art_list[1]
+    # else:
+    # random_enemy_art = var.enemy_art_list[random.randrange(0, 4)]
+    if var.enemies_alive:
+        art = var.enemy_art_list[0]
+    else:
+        art = var.enemy_art_list[random.randrange(0, 4)]
 
     for i in range(classes.enemy.amount):
-        var.enemy_unit.append(random_enemy_art)
+        var.enemy_unit.append(art)
         var.enemy_unit_x.append(random.randint(0, 550))
         var.enemy_unit_y.append(random.randint(0, 300))
         var.enemy_unit_drop.append(classes.enemy.drop)
         var.enemy_moving.append(False)
-        draw(var.enemy_unit[i], var.enemy_unit_x[i], var.enemy_unit_y[i])
 
-    var.enemies_alive=True
-    
-    
-    
+    if classes.enemy.amount != 0:
+        var.enemies_alive = True
+    else:
+        var.enemies_alive = False
+        var.enemy_unit.clear()
 
-    
 
 # handles enemy movement
 def enemy_movement():
@@ -158,7 +157,7 @@ def collision_check():
                 classes.enemy.amount -= 1
                 classes.enemy.remove(i)
                 classes.projectile.state = False
-                classes.projectile.reset()                
+                classes.projectile.reset()
                 sound(var.explosion)
                 var.score += 1
 

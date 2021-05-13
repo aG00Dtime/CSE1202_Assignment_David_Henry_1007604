@@ -3,13 +3,13 @@ import pygame
 
 import modules.misc as func
 import modules.vars as var
-from modules.classes import player, projectile
+from modules.classes import player, projectile, enemy
 
 # startup
 pygame.init()
 
 # set display size and title
-#pygame.display.set_caption("David Henry - 1007604 - CSE 1202")
+# pygame.display.set_caption("David Henry - 1007604 - CSE 1202")
 
 
 # show welcome screen
@@ -50,29 +50,25 @@ while var.running:
     if projectile.state:
         func.draw(projectile.art, projectile.x, projectile.y)
         projectile.y -= projectile.speed
-        
+
     # for loops to check enemies
-    if  not var.game_over:
+    if not var.game_over:
         func.create_enemies()
-    
-        # movement of enemies
+
+    enemy.draw()
+    # movement of enemies
     func.enemy_update()
     func.enemy_movement()
 
     # projectile hit
     func.collision_check()
 
-    # reset enemy.amount
-    
-    
     # game over
     if player.health <= 0 or var.escaped >= 5:
         var.game_over = True
 
     # draw objects on the screen
-    
     func.redraw()
-    
+
     # fps
-    
     var.clock.tick(var.fps)

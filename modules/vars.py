@@ -40,7 +40,7 @@ enemy_art_list = [pygame.transform.scale(pygame.image.load("art\\enemy1.png").co
 shooting_sound = pygame.mixer.Sound("sound\\shoot.wav")
 explosion = pygame.mixer.Sound('sound\\explosion.wav')
 bg = pygame.image.load("art\\bg.png").convert()
-explosion_art = pygame.transform.scale(pygame.image.load("art\\explosion.png").convert_alpha(),(50,50))
+explosion_art = pygame.transform.scale(pygame.image.load("art\\explosion.png").convert_alpha(),(60,60))
 shield_art = pygame.image.load("art\\shield.png").convert_alpha()
 welcome = pygame.image.load("art\\welcome.png").convert()
 pygame.mixer.music.load("sound\\music.wav")

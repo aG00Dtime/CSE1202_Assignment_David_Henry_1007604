@@ -1,6 +1,7 @@
 import modules.collision as col
 import modules.vars as var
 import pygame
+import modules.misc as func
 
 
 # player
@@ -18,7 +19,7 @@ class Player(object):
         self.speed = 10
 
         # art
-        self.art = pygame.transform.scale(pygame.image.load("art\\ship.png").convert_alpha(),(50,50))
+        self.art = pygame.transform.scale(pygame.image.load("art\\ship.png").convert_alpha(), (50, 50))
 
     # keep player inside the window
     def boundaries(self, x, y):
@@ -58,6 +59,11 @@ class Enemy(object):
         var.enemy_unit_drop.remove(var.enemy_unit_drop[enemy_id])
         var.enemy_moving.remove(var.enemy_moving[enemy_id])
 
+    @staticmethod
+    def draw():
+        for i in range(enemy.amount):
+            func.draw(var.enemy_unit[i], var.enemy_unit_x[i], var.enemy_unit_y[i])
+
 
 # projectile
 class Projectile(object):
@@ -66,12 +72,12 @@ class Projectile(object):
         self.art = pygame.image.load("art\\bullet.png").convert_alpha()
         self.speed = 20
         self.x = player.x + 15
-        self.y = player.y
+        self.y = player.y - 15
 
     # reset the projectile
     def reset(self):
         self.x = player.x + 15
-        self.y = player.y
+        self.y = player.y - 15
 
     def hit(self, i):
         if col.hit(self.x, self.y, var.enemy_unit_x[i], var.enemy_unit_y[i], 40):
