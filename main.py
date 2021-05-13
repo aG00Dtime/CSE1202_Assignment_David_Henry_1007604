@@ -1,9 +1,7 @@
-# imports
 import pygame
-
-import modules.misc as func
-import modules.vars as var
 from modules.classes import player, projectile, enemy
+import modules.vars as var
+import modules.misc as func
 
 # startup
 pygame.init()
@@ -30,6 +28,8 @@ func.music()
 
 # main loop
 while var.running:
+    # background
+    func.draw(var.bg, 0, 0)
     # screen title with fps
     pygame.display.set_caption("David Henry - 1007604 - CSE 1202 -FPS :{}".format(var.clock.get_fps()))
     # game over  check
@@ -39,10 +39,6 @@ while var.running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             var.running = False
-
-    # background
-    func.draw(var.bg, 0, 0)
-
     # projectile
     if projectile.y <= 0:
         projectile.state = False
@@ -53,21 +49,23 @@ while var.running:
 
     # for loops to check enemies
     if not var.game_over:
-        func.create_enemies()
-        # movement of enemies
-        func.enemy_update()
-        func.enemy_movement()
+        enemy.create()
+        enemy.movement()
+        enemy.amount_update()
 
         # projectile hit
         func.collision_check()
+
+    # draw objects on the screen
+    
+    func.score_draw(var.score)
+    player.movement()
+    player.health_bar(var.bar_update)
+    player.update()
+    # player movement
+
     # game over
     if player.health <= 0 or var.escaped >= 5:
         var.game_over = True
-
-    # draw objects on the screen
-    func.redraw()
-    # player movement
-    func.player_movement()
-
     # fps
     var.clock.tick(var.fps)

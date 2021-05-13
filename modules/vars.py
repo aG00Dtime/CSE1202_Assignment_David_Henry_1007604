@@ -1,5 +1,7 @@
 import pygame
 
+import os
+
 # frames
 clock = pygame.time.Clock()
 fps = 60
@@ -50,3 +52,6 @@ pygame.mixer.music.load("sound\\music.wav")
 pygame.mixer.Sound.set_volume(shooting_sound, 0.015)
 pygame.mixer.Sound.set_volume(explosion, 0.05)
 pygame.mixer.music.set_volume(0.04)
+
+#path
+path = os.getcwd()

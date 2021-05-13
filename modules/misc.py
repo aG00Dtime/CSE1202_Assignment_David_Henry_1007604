@@ -1,20 +1,18 @@
-import modules.vars as var
 import pygame
-import random
-import os
 import modules.classes as classes
+import modules.vars as var
 
-path = os.getcwd()
 
 
-# play music
+
+
 def music():
     pygame.mixer.music.play(-1)
 
 
 # draw the score on the screen
 def score_draw(score):
-    font = pygame.font.Font(path + "\\font\\New Space.ttf", 25)
+    font = pygame.font.Font(var.path + "\\font\\New Space.ttf", 25)
     score_text = font.render("Score : " + str(score), True, (175, 167, 212))
     escaped_text = font.render("Escaped : " + str(var.escaped) + "/5", True, (175, 167, 212))
     stage_text = font.render("Stage : " + str(var.stage), True, (175, 167, 212))
@@ -36,9 +34,8 @@ def sound(sound_effect):
 # game over message
 def game_over_text():
     if var.game_over:
-
         pygame.mixer.music.stop()
-        font = pygame.font.Font(path + "\\font\\ArtisualDeco.ttf", 50)
+        font = pygame.font.Font(var.path + "\\font\\ArtisualDeco.ttf", 50)
         game_over_message = font.render("GAME OVER", True, (255, 255, 255))
         draw(game_over_message, 150, 300)
         pygame.display.update()
@@ -47,107 +44,6 @@ def game_over_text():
             if event.type == pygame.QUIT:
                 var.game_over = False
                 var.running = False
-
-
-# update screen objects
-def redraw():
-    if not var.game_over:
-        score_draw(var.score)
-        classes.player.health_bar(var.bar_update)
-        draw(classes.player.art, classes.player.x, classes.player.y)
-        pygame.display.flip()
-
-
-# handles player movement
-def player_movement():
-    if not var.game_over:
-        action = pygame.key.get_pressed()
-
-        if action[pygame.K_UP]:
-            classes.player.y -= classes.player.speed
-
-        if action[pygame.K_DOWN]:
-            classes.player.y += classes.player.speed
-
-        if action[pygame.K_LEFT]:
-            classes.player.x -= classes.player.speed
-
-        if action[pygame.K_RIGHT]:
-            classes.player.x += classes.player.speed
-
-        if action[pygame.K_SPACE]:
-            if not classes.projectile.state:
-                classes.projectile.state = True
-                sound(var.shooting_sound)
-                classes.projectile.reset()
-
-        classes.player.boundaries(classes.player.x, classes.player.y)
-
-
-# update enemy list
-def enemy_update():
-    if classes.enemy.amount >= 50:
-        classes.enemy.amount = 50
-        classes.enemy.drop += 50
-
-    if classes.enemy.amount <= 0:
-        if classes.enemy.amount < 50:
-            classes.enemy.amount += 5 + int(var.score * .5)
-        classes.enemy.speed += 2
-        classes.enemy.drop += int(var.score * .25)
-        classes.projectile.speed += 5
-
-
-# create enemies and append them to a list
-
-
-def create_enemies():
-    if var.enemies_alive:
-        art = var.enemy_art_list[4]
-    else:
-        art = var.enemy_art_list[random.randrange(0, 4)]
-
-    for i in range(classes.enemy.amount):
-        var.enemy_unit.append(art)
-        var.enemy_unit_x.append(random.randint(0, 550))
-        var.enemy_unit_y.append(random.randint(0, 300))
-        var.enemy_unit_drop.append(classes.enemy.drop)
-        var.enemy_moving.append(False)
-        draw(var.enemy_unit[i], var.enemy_unit_x[i], var.enemy_unit_y[i])
-
-    if classes.enemy.amount != 0:
-        var.enemies_alive = True
-    else:
-        var.enemies_alive = False
-        var.enemy_unit.clear()
-        var.stage += 1
-
-
-# handles enemy movement
-def enemy_movement():
-    # handles the enemy movement , change their direction when they hit the walls
-    for i in range(classes.enemy.amount):
-
-        if var.enemy_moving[i]:
-            var.enemy_unit_x[i] += classes.enemy.speed
-        else:
-            var.enemy_unit_x[i] -= classes.enemy.speed
-
-        if var.enemy_unit_x[i] >= 550:
-            var.enemy_unit_x[i] = 550
-            var.enemy_unit_y[i] += var.enemy_unit_drop[i]
-            var.enemy_moving[i] = False
-
-        elif var.enemy_unit_x[i] <= 0:
-            var.enemy_unit_x[i] = 0
-            var.enemy_unit_y[i] += var.enemy_unit_drop[i]
-            var.enemy_moving[i] = True
-
-        if var.enemy_unit_y[i] >= 750:
-            var.escaped += 1
-            var.enemy_unit_y[i] = 0
-            classes.enemy.amount -= 1
-            classes.enemy.remove(i)
 
 
 # collision check
@@ -175,5 +71,6 @@ def collision_check():
             sound(var.explosion)
             classes.enemy.amount -= 1
             classes.enemy.remove(i)
+
 
 
