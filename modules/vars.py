@@ -1,6 +1,7 @@
 import pygame
 
 import os
+pygame.init()
 
 # frames
 clock = pygame.time.Clock()
@@ -32,8 +33,8 @@ escaped = 0
 running = True
 game_over = False
 enemies_alive = False
+
 # sounds and art
-pygame.init()
 enemy_art_list = [pygame.transform.scale(pygame.image.load("art\\enemy0.png").convert_alpha(), (50, 50)),
                   pygame.transform.scale(pygame.image.load("art\\enemy1.png").convert_alpha(), (50, 50)),
                   pygame.transform.scale(pygame.image.load("art\\enemy2.png").convert_alpha(), (50, 50)),
@@ -55,3 +56,5 @@ pygame.mixer.music.set_volume(0.04)
 
 #path
 path = os.getcwd()
+
+

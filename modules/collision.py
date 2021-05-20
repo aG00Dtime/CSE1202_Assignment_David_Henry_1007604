@@ -8,3 +8,7 @@ def hit(x1, y1, x2, y2, space):
     # print(distance)
     if distance <= space:
         return True
+
+
+
+

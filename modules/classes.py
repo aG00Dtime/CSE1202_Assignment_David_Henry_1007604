@@ -4,6 +4,7 @@ import modules.vars as var
 import modules.misc as func
 import modules.collision as col
 
+
 # player
 class Player(object):
     def __init__(self):
@@ -19,6 +20,7 @@ class Player(object):
         self.art = pygame.transform.scale(pygame.image.load("art\\ship.png").convert_alpha(), (50, 50))
 
     # keep player inside the window and restricted to the bottom
+
     def boundaries(self, x, y):
         if x >= 550:
             self.x = 550
@@ -41,9 +43,10 @@ class Player(object):
     def update(self):
         if not var.game_over:
             func.draw(self.art, self.x, self.y)
-            pygame.display.flip()
+            
 
     # handles player movement
+
     def movement(self):
         if not var.game_over:
             action = pygame.key.get_pressed()
@@ -76,11 +79,12 @@ class Enemy(object):
     # enemy class
     def __init__(self):
         self.amount = 5
-        self.speed = 5
-        self.drop = 30
+        self.speed = 1
+        self.drop = 20
 
     # remove enemies from the list after they are destroyed
-    @staticmethod
+
+    @staticmethod # removes enemy data from the lists 
     def remove(enemy_id):
         var.enemy_unit.remove(var.enemy_unit[enemy_id])
         var.enemy_unit_x.remove(var.enemy_unit_x[enemy_id])
@@ -107,14 +111,16 @@ class Enemy(object):
                 var.enemy_unit_y[i] += var.enemy_unit_drop[i]
                 var.enemy_moving[i] = True
 
-            if var.enemy_unit_y[i] >= 750:
+            if var.enemy_unit_y[i] >= 650:
                 var.escaped += 1
                 var.enemy_unit_y[i] = 0
                 self.amount -= 1
                 self.remove(i)
 
     # create the enemy list
+
     def create(self):
+
         if var.enemies_alive:
             art = var.enemy_art_list[4]
         else:
@@ -130,6 +136,7 @@ class Enemy(object):
 
         if self.amount != 0:
             var.enemies_alive = True
+            
         else:
             var.enemies_alive = False
             var.enemy_unit.clear()
@@ -151,10 +158,11 @@ class Enemy(object):
 
 # projectile
 class Projectile(object):
+
     def __init__(self):
         self.state = False
         self.art = pygame.image.load("art\\bullet.png").convert_alpha()
-        self.speed = 20
+        self.speed = 10
         self.x = player.x + 15
         self.y = player.y - 15
 

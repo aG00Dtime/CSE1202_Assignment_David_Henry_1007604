@@ -2,13 +2,8 @@ import pygame
 import modules.classes as classes
 import modules.vars as var
 
-
-
-
-
 def music():
     pygame.mixer.music.play(-1)
-
 
 # draw the score on the screen
 def score_draw(score):
@@ -20,16 +15,13 @@ def score_draw(score):
     var.game_window.blit(stage_text, (5, 30))
     var.game_window.blit(escaped_text, (5, 55))
 
-
 # function to draw things
 def draw(img, x, y):
     var.game_window.blit(img, (x, y))
 
-
 # play sound effects
 def sound(sound_effect):
     pygame.mixer.Sound.play(sound_effect)
-
 
 # game over message
 def game_over_text():
@@ -44,7 +36,6 @@ def game_over_text():
             if event.type == pygame.QUIT:
                 var.game_over = False
                 var.running = False
-
 
 # collision check
 def collision_check():
@@ -71,6 +62,3 @@ def collision_check():
             sound(var.explosion)
             classes.enemy.amount -= 1
             classes.enemy.remove(i)
-
-
-
