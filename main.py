@@ -1,9 +1,8 @@
 import pygame
 from modules.classes import player, projectile, enemy
 import modules.vars as var
-import modules.misc as func
-import math
-import random
+import modules.functions as func
+
 # startup
 pygame.init()
 

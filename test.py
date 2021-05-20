@@ -2,6 +2,8 @@ import pygame as pg
 import math
 from pygame.draw import rect
 import random
+
+
 pg.init()
 width = 600
 height = 700

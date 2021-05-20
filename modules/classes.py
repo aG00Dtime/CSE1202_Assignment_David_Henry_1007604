@@ -1,7 +1,7 @@
 import pygame
 import random
 import modules.vars as var
-import modules.misc as func
+import modules.functions as func
 import modules.collision as col
 
 
