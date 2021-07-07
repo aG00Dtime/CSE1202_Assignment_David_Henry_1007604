@@ -2,6 +2,8 @@
 
 All art and sound effects done by me.
 
-- Requires Pygame
+- Presentation is found in the "VIDEO" folder
 
-- Run with main.py
+* Requires Pygame
+
+* Run with main.py
