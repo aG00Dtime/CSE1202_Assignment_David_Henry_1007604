@@ -73,7 +73,6 @@ class Player(object):
 
 
 # enemy
-
 class Enemy(object):
 
     # enemy class
